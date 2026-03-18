@@ -127,13 +127,14 @@ export async function renderHome(root) {
         }
 
         .landing-title {
-          font-size: clamp(2.5rem, 8vw, 4rem);
+          font-size: clamp(3rem, 10vw, 5rem);
           font-weight: 900;
           text-transform: uppercase;
-          letter-spacing: 2px;
+          letter-spacing: 3px;
           margin: 20px 0 10px 0;
           text-shadow: 2px 4px 8px rgba(0,0,0,0.5);
           text-align: center;
+          color: #f8fafc;
         }
 
         .landing-subtitle {
@@ -142,6 +143,7 @@ export async function renderHome(root) {
           margin-bottom: 50px;
           text-align: center;
           font-weight: 300;
+          letter-spacing: 1px;
         }
 
         .landing-buttons {
@@ -211,8 +213,8 @@ export async function renderHome(root) {
       <div class="landing-fullscreen">
         ${adminGreeting}
 
-        <h1 class="landing-title">Sistema de Gestão Bocha BR</h1>
-        <p class="landing-subtitle">Gestão de Competições de Bocha Paralímpica</p>
+        <h1 class="landing-title">SCBP</h1>
+        <p class="landing-subtitle">Sistema de Competição de Bocha Paralímpica</p>
 
         <div class="landing-buttons">
           
@@ -240,7 +242,7 @@ export async function renderHome(root) {
         </div>
 
         <div class="landing-footer">
-          © ${new Date().getFullYear()} Criado por Gabriel Sousa.
+          © ${new Date().getFullYear()} Desenvolvido por Gabriel Sousa.
         </div>
       </div>
     `;
