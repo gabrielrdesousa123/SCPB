@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>SGBR | Sistema de Gestão Bocha Brasil</title>
+  <link rel="icon" href="data:,">
+
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/competition.css">
+
+  <style>
+    body:not(.is-logged-in) header { justify-content: center; }
+    
+    /* 🔥 Nova Identidade Visual SGBR no Topo */
+    header h1 { 
+        cursor: pointer; 
+        transition: opacity 0.2s; 
+        display: flex; 
+        align-items: center; 
+        margin: 0;
+    }
+    header h1:hover { opacity: 0.8; }
+    
+    .sgbr-logo { 
+        font-weight: 900; 
+        letter-spacing: 1px; 
+    }
+    .sgbr-sub { 
+        font-size: 14px; 
+        font-weight: 500; 
+        color: #64748b; 
+        margin-left: 12px; 
+        padding-left: 12px; 
+        border-left: 2px solid #cbd5e1; 
+        letter-spacing: 0; 
+        display: none; /* Esconde no telemóvel */
+    }
+    @media (min-width: 600px) { 
+        .sgbr-sub { display: inline-block; } /* Mostra em ecrãs maiores */
+    }
+
+    .hidden-by-role { display: none !important; }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1 onclick="location.hash='#/home'" title="Ir para a página inicial">
+        <span class="sgbr-logo">SGBR</span>
+        <span class="sgbr-sub">Sistema de Gestão Bocha Brasil</span>
+    </h1>
+    
+    <div class="right" id="headerControls" style="display: none; align-items: center;">
+      
+      <div id="adminViewAsContainer" style="display:none; align-items:center; gap:5px; margin-right:15px; background:#f8fafc; padding:4px 8px; border-radius:6px; border:1px solid #cbd5e1;">
+          <label for="adminRoleSwitcher" style="font-size:11px; color:#64748b; font-weight:bold; margin:0;">👁️ Visão:</label>
+          <select id="adminRoleSwitcher" style="font-size:12px; border:none; background:transparent; font-weight:bold; color:#0f172a; cursor:pointer; outline:none;">
+              <option value="ADMIN_GERAL">Admin Total</option>
+              <option value="ADMIN_1">Admin I</option>
+              <option value="ADMIN_2">Admin II</option>
+              <option value="USER_1">Usuário</option>
+              <option value="PUBLIC">Público</option>
+          </select>
+      </div>
+
+      <button class="btn" id="btnHamburger" data-menu-toggle aria-haspopup="true" aria-expanded="false" aria-controls="mainMenuPanel">
+        Menu
+      </button>
+
+      <nav id="mainMenuPanel" class="sidebar" role="menu" aria-label="Menu principal">
+        <a role="menuitem" class="btn" href="#/home">Início</a>
+        <a role="menuitem" class="btn auth-link" href="#/login" id="linkLogin" style="background: #0f172a; color: white;">🔒 Login / Admin</a>
+        
+        <a role="menuitem" class="btn restricted-link" href="#/competitions/load" data-page="competicoes">Competições</a>
+        <a role="menuitem" class="btn restricted-link" href="#/clubes" data-page="clubes">Clubes</a>
+        <a role="menuitem" class="btn restricted-link" href="#/classes" data-page="classes">Classes</a>
+        <a role="menuitem" class="btn restricted-link" href="#/atletas" data-page="atletas">Atletas</a>
+        <a role="menuitem" class="btn restricted-link" href="#/oficiais" data-page="oficiais">Oficiais</a>
+        
+        <a role="menuitem" class="btn restricted-link" href="#/solicitar-dispensa" data-page="solicitar_dispensa" style="background: #e0f2fe; color: #1e3a8a; border-left: 4px solid #3b82f6;">📝 Minhas Dispensas</a>
+        <a role="menuitem" class="btn restricted-link" href="#/admin/dispensas" data-page="admin_dispensas" id="menu-admin-dispensas" style="background: #fef08a; color: #854d0e; border-left: 4px solid #eab308;">🛡️ Gerenciar Dispensas</a>
+
+        <a role="menuitem" class="btn restricted-link" href="#/resultados" data-page="resultados">Resultados</a>
+        <a role="menuitem" class="btn restricted-link" href="#/status" data-page="status">Status</a>
+        <a role="menuitem" class="btn restricted-link" href="#/simulador" data-page="simulador">Simulador</a>
+        <a role="menuitem" class="btn restricted-link" href="#/csv" data-page="csv" style="border-top: 1px solid #ddd; margin-top: 5px;">📥 Importar / CSV</a>
+        <a role="menuitem" class="btn restricted-link" href="#/admin/users" data-page="gestao" style="background: #ef4444; color: white;">⚙️ Gestão de Acessos</a>
+        
+        <button role="menuitem" class="btn" id="btnLogout" style="display:none; color: #dc3545; background: #fee2e2; border-color: #fca5a5; margin-top: 10px;">Sair (Logout)</button>
+      </nav>
+
+      <button class="btn restricted-link" data-page="all" id="btnUndo" title="Desfazer (Ctrl+Z)" aria-label="Desfazer">⟲</button>
+      <button class="btn restricted-link" data-page="all" id="btnRedo" title="Refazer (Ctrl+Y)" aria-label="Refazer">⟳</button>
+    </div>
+  </header>
+
+  <div id="overlay" class="overlay"></div>
+  <main id="app" tabindex="-1" aria-busy="false"></main>
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="./js/lib/undo.js"></script>
+  <script type="module" src="./js/enhancers/ui-head.js"></script>
+  <script type="module" src="./js/firebase-config.js"></script>
+  <script type="module" src="./js/main.js"></script>
+
+  <script type="module">
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+    import { getFirestore, doc, getDoc, collection, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+    import { setCurrentUser, canViewPage, currentUser, setImpersonatedRole } from './js/permissions.js';
+    
+    const auth = getAuth();
+    const db = getFirestore();
+    const headerControls = document.getElementById('headerControls');
+    const btnLogout = document.getElementById('btnLogout');
+    const linkLogin = document.getElementById('linkLogin');
+    const viewAsContainer = document.getElementById('adminViewAsContainer');
+    const roleSwitcher = document.getElementById('adminRoleSwitcher');
+    
+    headerControls.style.display = 'flex';
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const userDoc = await getDoc(doc(db, 'users', user.uid));
+        const role = userDoc.exists() ? userDoc.data().global_role : 'USER_1';
+        
+        setCurrentUser(user.uid, role);
+        
+        document.body.classList.add('is-logged-in');
+        btnLogout.style.display = 'block';
+        linkLogin.style.display = 'none'; 
+        
+        if (currentUser.trueRole === 'ADMIN_GERAL') {
+            viewAsContainer.style.display = 'flex';
+            roleSwitcher.value = currentUser.globalRole;
+        } else {
+            viewAsContainer.style.display = 'none';
+        }
+
+        // 🔥 LISTENER EM TEMPO REAL PARA NOTIFICAÇÕES DE DISPENSA
+        if (canViewPage('admin_dispensas')) {
+            const dispensasRef = collection(db, "exemption_requests");
+            const q = query(dispensasRef, where("status", "==", "PENDING"));
+            
+            onSnapshot(q, (snapshot) => {
+                const menuBtn = document.getElementById('menu-admin-dispensas');
+                const dashBtn = document.getElementById('dash-admin-dispensas-badge'); 
+                
+                if (menuBtn) {
+                    if (!snapshot.empty) {
+                        menuBtn.style.backgroundColor = '#ef4444';
+                        menuBtn.style.color = '#ffffff';
+                        menuBtn.style.borderLeft = '4px solid #991b1b';
+                        menuBtn.innerHTML = `🛡️ Gerenciar Dispensas <span style="background:white; color:#ef4444; border-radius:50%; padding:2px 7px; font-size:12px; margin-left:8px; font-weight:900;">${snapshot.size}</span>`;
+                        
+                        if(dashBtn) dashBtn.innerHTML = `<span style="background:#ef4444; color:white; border-radius:50%; padding:4px 8px; font-size:14px; position:absolute; top:-10px; right:-10px; font-weight:bold; box-shadow:0 2px 5px rgba(0,0,0,0.5);">${snapshot.size}</span>`;
+                    } else {
+                        menuBtn.style.backgroundColor = '#fef08a';
+                        menuBtn.style.color = '#854d0e';
+                        menuBtn.style.borderLeft = '4px solid #eab308';
+                        menuBtn.innerHTML = `🛡️ Gerenciar Dispensas`;
+                        
+                        if(dashBtn) dashBtn.innerHTML = '';
+                    }
+                }
+            });
+        }
+
+      } else {
+        setCurrentUser(null, 'PUBLIC');
+        document.body.classList.remove('is-logged-in');
+        btnLogout.style.display = 'none';
+        linkLogin.style.display = 'block';
+        viewAsContainer.style.display = 'none';
+      }
+
+      updateMenuVisibility();
+
+      if (!window.isAuthReady) {
+          window.isAuthReady = true;
+          window.dispatchEvent(new Event('authReady'));
+      }
+    });
+
+    function updateMenuVisibility() {
+        document.querySelectorAll('.restricted-link').forEach(el => {
+            const pageName = el.getAttribute('data-page');
+            if(canViewPage(pageName)) {
+                el.classList.remove('hidden-by-role');
+            } else {
+                el.classList.add('hidden-by-role');
+            }
+        });
+    }
+
+    roleSwitcher.addEventListener('change', (e) => {
+        setImpersonatedRole(e.target.value);
+        updateMenuVisibility();
+        window.location.hash = '#/home';
+        window.location.reload();
+    });
+
+    if (btnLogout) {
+      btnLogout.addEventListener('click', () => {
+        signOut(auth).then(() => {
+          sessionStorage.removeItem('impersonatedRole');
+          window.location.hash = '#/home';
+          window.location.reload(); 
+        });
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+/* =================================================================== */
+/* HOME — Cards empilhados (minimal Windows-like)                      */
+/* =================================================================== */
+.hub {
+  max-width: 1100px;
+  margin: 28px auto 72px;
+  padding: 0 24px;
+}
+.hub-title {
+  margin: 0 0 18px 0;
+  font-size: clamp(24px, 4vw, 36px);
+  letter-spacing: .2px;
+}
+
+/* Grid com 1 coluna (3 linhas) */
+.hub-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+/* Card minimalista com elevação */
+.hub-card {
+  background: #f8f9fb;               /* Windows-like */
+  border: 1px solid #dfe3eb;
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow:
+    0 1px 1px rgba(0,0,0,.03),
+    0 10px 24px rgba(0,0,0,.06);
+  transition:
+    transform .14s ease,
+    box-shadow .14s ease,
+    border-color .14s ease,
+    background-color .14s ease;
+}
+.hub-card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 2px 3px rgba(0,0,0,.06),
+    0 14px 30px rgba(0,0,0,.12);
+  border-color: #cfd7e6;
+}
+.hub-card h2 {
+  margin: 0 0 10px 0;
+  font-size: 20px;
+}
+
+/* Links dentro do card */
+.hub-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+}
+.hub-actions a {
+  display: inline-block;
+  text-decoration: none;
+  color: #1a2a44;
+  background: #ffffff;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid #dfe3eb;
+  transition: background-color .12s ease, border-color .12s ease, transform .12s ease;
+}
+.hub-actions a:hover,
+.hub-actions a:focus-visible {
+  background: #eef2f9;
+  border-color: #c7d2e9;
+  transform: translateY(-1px);
+  outline: none;
+}
+
+/* Modo escuro do SO (leve, não troca seu tema geral) */
+@media (prefers-color-scheme: dark) {
+  .hub-title { color:#e6eaf3; }
+  .hub-card {
+    background:#141820; border-color:#262b36;
+    box-shadow: 0 1px 1px rgba(0,0,0,.2), 0 12px 26px rgba(0,0,0,.3);
+  }
+  .hub-actions a {
+    color:#c9d3e8; background:#0f131a; border-color:#2d3543;
+  }
+  .hub-actions a:hover, .hub-actions a:focus-visible {
+    background:#1b2230; border-color:#2f3a4f;
+  }
+}
+
+/* ===== Centralização da HOME ===== */
+#app[data-route="home"] .hub {
+  /* já havia max-width; aqui centralizamos visualmente */
+  text-align: center;
+}
+
+#app[data-route="home"] .hub-list {
+  max-width: 820px;   /* largura confortável */
+  margin-inline: auto;
+}
+
+#app[data-route="home"] .hub-actions {
+  justify-content: center;  /* botões centralizados nos cards */
+}
+
+
+/* =================================================================== */
+/* DESTRAVE DE ROLAGEM MOBILE DEFINITIVO (FORÇA BRUTA)                 */
+/* =================================================================== */
+html, body {
+  height: auto !important; /* Quebra qualquer trava de 100vh */
+  min-height: 100vh;
+  overflow-x: hidden !important;
+  overflow-y: auto !important; /* Obriga o navegador a deixar rolar */
+  -webkit-overflow-scrolling: touch; /* Habilita rolagem suave no iPhone */
+}
+
+/* Desativa o flexbox no container principal se ele estiver travando a altura */
+main#app, body > div, .wb-container {
+  display: block !important; 
+  height: auto !important;
+  min-height: 100vh;
+  overflow: visible !important;
+  padding-bottom: 150px !important; /* Espaçamento GIGANTE no final pra celular */
+}
+
+/* Aplica o espaço na home também */
+.hub {
+  padding-bottom: 120px !important; 
+}

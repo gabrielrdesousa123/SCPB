@@ -1,0 +1,18 @@
+[
+  {"name":"BC1 Male","code":"BC1M","format":"Individuals","classes":["BC1"],"genders":["Male"],"ends":4,"turnTime":"00:04:30","uiColor":{"bg":"#0d6efd","fg":"#ffffff"}},
+  {"name":"BC1 Female","code":"BC1F","format":"Individuals","classes":["BC1"],"genders":["Female"],"ends":4,"turnTime":"00:04:30","uiColor":{"bg":"#cfe6ff","fg":"#152238"}},
+
+  {"name":"BC2 Male","code":"BC2M","format":"Individuals","classes":["BC2"],"genders":["Male"],"ends":4,"turnTime":"00:03:30","uiColor":{"bg":"#2bb673","fg":"#062214"}},
+  {"name":"BC2 Female","code":"BC2F","format":"Individuals","classes":["BC2"],"genders":["Female"],"ends":4,"turnTime":"00:03:30","uiColor":{"bg":"#b9eacb","fg":"#103221"}},
+
+  {"name":"BC3 Male","code":"BC3M","format":"Individuals","classes":["BC3"],"genders":["Male"],"ends":4,"turnTime":"00:06:00","uiColor":{"bg":"#e01d24","fg":"#ffffff"}},
+  {"name":"BC3 Female","code":"BC3F","format":"Individuals","classes":["BC3"],"genders":["Female"],"ends":4,"turnTime":"00:06:00","uiColor":{"bg":"#ffb4b6","fg":"#4a0b0c"}},
+
+  {"name":"BC4 Male","code":"BC4M","format":"Individuals","classes":["BC4"],"genders":["Male"],"ends":4,"turnTime":"00:03:30","uiColor":{"bg":"#ffc107","fg":"#3b2a00"}},
+  {"name":"BC4 Female","code":"BC4F","format":"Individuals","classes":["BC4"],"genders":["Female"],"ends":4,"turnTime":"00:03:30","uiColor":{"bg":"#ffe6a3","fg":"#3b2a00"}},
+
+  {"name":"Mixed BC3 Pairs","code":"P-BC3MF","format":"Pairs","classes":["BC3"],"genders":["Male","Female"],"ends":4,"turnTime":"00:07:00","uiColor":{"bg":"#b00020","fg":"#ffffff"}},
+  {"name":"Mixed BC4 Pairs","code":"P-BC4MF","format":"Pairs","classes":["BC4"],"genders":["Male","Female"],"ends":4,"turnTime":"00:04:00","uiColor":{"bg":"#f59e0b","fg":"#231a00"}},
+
+  {"name":"Mixed BC1/2 Team","code":"T-BC12MF","format":"Teams","classes":["BC1","BC2"],"genders":["Male","Female"],"ends":6,"turnTime":"00:05:00","uiColor":{"bg":"#1f2bd6","fg":"#ffffff"}}
+]

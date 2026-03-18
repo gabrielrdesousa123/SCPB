@@ -1,0 +1,96 @@
+/* =================================================================== */
+/* ESTILOS DA PÁGINA DE COMPETIÇÕES (Classes, Grupos e Eliminatórias)  */
+/* =================================================================== */
+
+/* Variáveis específicas do módulo de competição */
+:root {
+  --blue-match-num: #007bff;
+  --green-win: #28a745;
+  --red-loss: #dc3545;
+  --yellow-warning: #ffc107;
+  --vs-win-color: #28a745;
+  --vs-loss-color: #dc3545;
+  --vs-draw-color: #ffc107;
+}
+
+/* --- Layout Base da Classe (competition-class.js) --- */
+.cc-wrap { max-width: 1024px; margin: 0 auto; padding: 8px; }
+.cc-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.cc-back { border: 1px solid var(--btn-border,#ccc); background: var(--btn-bg,#f7f7f7); border-radius: 8px; padding: 4px 8px; cursor: pointer; }
+.cc-head-text h1 { margin: 0; font-size: 18px; text-transform: uppercase; }
+.cc-sub { margin: 0; font-size: 12px; color: var(--muted,#666); }
+
+.cc-classbar { margin: 4px 0 6px; }
+.cc-pill { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 4px 10px; font-size: 12px; border: 1px solid rgba(0,0,0,.1); }
+.cc-dot { width: 10px; height: 10px; border-radius: 50%; border: 1px solid rgba(0,0,0,.3); flex-shrink: 0; }
+
+.cc-tabs { display: flex; gap: 6px; border-bottom: 1px solid var(--card-border,#ddd); margin-bottom: 8px; }
+.cc-tabs button { border: none; background: transparent; padding: 6px 10px; font-size: 13px; cursor: pointer; border-radius: 8px 8px 0 0; }
+.cc-tabs button[data-active="true"] { background: var(--card,#fff); border: 1px solid var(--card-border,#ddd); border-bottom: none; }
+
+.cc-content { border: 1px solid var(--card-border,#ddd); border-radius: 12px; padding: 8px; background: var(--card,#fff); box-shadow: var(--shadow,0 1px 3px rgba(0,0,0,.08)); min-height: 120px; }
+
+/* --- Layout de Grupos e Partidas (competition-class-competition.js) --- */
+.comp-class-wrap { padding: 20px; max-width: 1200px; margin: 0 auto; }
+.comp-class-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid var(--card-border); padding-bottom: 15px; }
+.comp-class-title { font-size: 2em; margin: 0; color: var(--text-dark); }
+.comp-class-subtitle { font-size: 1.1em; color: var(--text-muted); margin: 5px 0 0 0; }
+
+.btn-back { background-color: var(--secondary-color); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 1em; transition: background-color 0.2s; }
+.btn-back:hover { background-color: #5a6268; }
+
+/* Pool Section */
+.pool-section { background-color: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 40px; padding: 20px; }
+.pool-title { font-size: 1.8em; font-weight: bold; margin-top: 0; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--card-border); color: var(--text-dark); }
+
+/* Entrants Table */
+.entrants-table-container { overflow-x: auto; margin-bottom: 30px; }
+.entrants-table { width: 100%; border-collapse: collapse; min-width: 800px; }
+.entrants-table th, .entrants-table td { padding: 12px 10px; border: 1px solid #f0f0f0; text-align: left; vertical-align: middle; }
+.entrants-table thead th { background-color: var(--light-color, #f8f9fa); font-weight: 600; color: var(--dark-color, #343a40); position: sticky; top: 0; z-index: 1; }
+.entrants-table tbody tr:nth-child(even) { background-color: #f9f9f9; }
+.entrant-info { display: flex; align-items: center; gap: 10px; }
+.entrant-logo { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; border: 1px solid #eee; }
+.entrant-name-club { display: flex; flex-direction: column; }
+.entrant-name { font-weight: 500; color: var(--text-dark); }
+.entrant-club { font-size: 0.85em; color: var(--text-muted); }
+.entrant-bib-circle { width: 30px; height: 30px; border-radius: 50%; background-color: var(--primary-color); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9em; }
+
+/* VS Record */
+.vs-record-header { text-align: center; font-size: 0.8em; font-weight: normal; color: var(--text-muted); }
+.vs-record-item { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin: 0 auto; border: 1px solid #eee; }
+.vs-win { background-color: #D4EDDA; color: var(--vs-win-color); border-color: #C3E6CB; }
+.vs-loss { background-color: #F8D7DA; color: var(--vs-loss-color); border-color: #F5C6CB; }
+
+/* Matches Section */
+.matches-section { margin-top: 30px; }
+.matches-section-title { font-size: 1.5em; font-weight: bold; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--card-border); color: var(--text-dark); }
+.round-block { margin-bottom: 25px; }
+.round-title { font-size: 1.2em; font-weight: 600; margin-top: 0; margin-bottom: 15px; color: var(--text-dark); }
+.matches-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+.match-card { background-color: #fff; border: 1px solid var(--card-border); border-radius: 8px; padding: 15px; display: flex; align-items: center; gap: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+.match-number-circle { width: 40px; height: 40px; border-radius: 50%; background-color: var(--blue-match-num); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.1em; flex-shrink: 0; }
+.match-details { flex-grow: 1; }
+.match-player-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px dashed #F0F0F0; }
+.match-player-row:last-child { border-bottom: none; }
+.match-player-name { font-weight: 500; color: var(--text-dark); flex-grow: 1; }
+.player-club-small { font-size: 0.8em; color: var(--text-muted); font-weight: normal; }
+.match-player-score { font-weight: bold; color: var(--text-dark); min-width: 25px; text-align: right; }
+.match-player-row.winner .match-player-name, .match-player-row.winner .match-player-score { color: var(--green-win); font-weight: bold; }
+.match-player-row.loser .match-player-name, .match-player-row.loser .match-player-score { color: var(--red-loss); }
+.match-player-row.scheduled .match-player-name, .match-player-row.scheduled .match-player-score { color: var(--text-dark); }
+.match-player-row.bye .match-player-name { color: var(--text-muted); font-style: italic; }
+.match-player-row.bye .match-player-score { color: var(--text-muted); }
+
+/* Knockout Section */
+.knockout-section { background-color: #fff; border: 1px solid var(--card-border); border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-top: 40px; padding: 20px; }
+.knockout-title { font-size: 1.8em; font-weight: bold; margin-top: 0; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--card-border); color: var(--text-dark); }
+.knockout-bracket { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 10px; }
+.knockout-round { flex-shrink: 0; min-width: 280px; display: flex; flex-direction: column; gap: 15px; }
+.knockout-round-title { font-size: 1.3em; font-weight: 600; margin-top: 0; margin-bottom: 5px; text-align: center; color: var(--text-dark); }
+.knockout-match-card { margin-bottom: 10px; }
+.third-place-match .match-number-circle { background-color: #F59E0B; }
+
+/* Mensagens de estado */
+.info-message { background-color: #DBEAFE; border: 1px solid #60A5FA; color: #1E40AF; padding: 15px; border-radius: 8px; margin-top: 20px; text-align: center; }
+.info-message h4 { margin-top: 0; color: #1E40AF; }

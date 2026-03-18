@@ -1,0 +1,30 @@
+{
+  "name": "bocha-app",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "nodemon server/server.js",
+    "migrate": "node server/fix-classes-schema.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.0.0",
+    "cors": "^2.8.5",
+    "csv-parse": "^6.1.0",
+    "csv-stringify": "^6.6.0",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.4.0",
+    "firebase-admin": "^13.6.1",
+    "helmet": "^7.1.0",
+    "mime-types": "^2.1.35",
+    "multer": "^2.0.0",
+    "papaparse": "^5.5.3",
+    "puppeteer": "^24.25.0",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

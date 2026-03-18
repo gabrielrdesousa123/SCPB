@@ -1,0 +1,21 @@
+# Chaves e Senhas (CRÍTICO)
+firebase-key.json
+
+# Dependências do Node (Muito pesado, não deve subir)
+node_modules/
+
+# Pastas de cache e deploy do Firebase
+.firebase/
+hosting.*.cache
+
+# Pastas de Resultados Gerados (Ficheiros locais)
+Resultados CSV/
+Resultados PDF/
+
+# Bancos de dados locais (Opcional, evita conflitos de alterações)
+app.sqlite
+app.sqbpro
+
+# Arquivos do sistema (Mac/Windows)
+.DS_Store
+Thumbs.db 
