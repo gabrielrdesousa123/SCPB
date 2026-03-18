@@ -19,3 +19,6 @@ app.sqbpro
 # Arquivos do sistema (Mac/Windows)
 .DS_Store
 Thumbs.db 
+
+# Scripts locais de automação
+atualizar.bat
